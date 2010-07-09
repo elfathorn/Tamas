@@ -1,1 +1,6 @@
+doc
+doc/*
+log
+log/*
+config/database.yml
 
