@@ -15,3 +15,5 @@ tmp/sockets/*
 config/database.yml
 nbproject
 nbproject/*
+db/*.sqlite3
+db/schema.rb

@@ -18,6 +18,13 @@ a {
   overflow: hidden;
 }
 
+ul {
+  list-style-type: none;
+}
+
+#user_informations {
+  float: right;
+}
 #container {
   width: 75%;
   margin: 0 auto;
