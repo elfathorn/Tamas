@@ -83,4 +83,10 @@ class UserTest < ActiveSupport::TestCase
     new_user(:username => 'foobar', :password => 'secret').save!
     assert_nil User.authenticate('foobar', 'badpassword')
   end
+
+  test 'new user SHOULD HAVE an owner' do
+    user = new_user
+    user.save!
+    assert user.owner
+  end
 end

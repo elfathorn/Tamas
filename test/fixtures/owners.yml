@@ -1,0 +1,5 @@
+foo_owner:
+  user_id: 1
+
+bar_owner:
+  user_id: 2

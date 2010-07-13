@@ -6,6 +6,7 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
 User.delete_all
+Owner.delete_all
 users = User.create([
   { :username => 'user1', :email => 'user1@gmail.com', :password => 'user1' },
   { :username => 'user2', :email => 'user2@gmail.com', :password => 'user2' },

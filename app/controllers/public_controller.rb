@@ -3,7 +3,4 @@ class PublicController < ApplicationController
 
   def index
   end
-
-  def center
-  end
 end

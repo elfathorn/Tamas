@@ -1,9 +1,12 @@
 class User < ActiveRecord::Base
+  has_one :owner
+
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation
   
   attr_accessor :password
   before_save :prepare_password
+  after_create :create_owner
   
   validates_presence_of :username
   validates_uniqueness_of :username, :email, :allow_blank => true
@@ -24,6 +27,10 @@ class User < ActiveRecord::Base
   end
   
   private
+
+  def create_owner
+    Owner.create({:user => self})
+  end
   
   def prepare_password
     unless password.blank?

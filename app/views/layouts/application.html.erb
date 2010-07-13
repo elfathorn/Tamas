@@ -16,6 +16,7 @@
         <li><%= link_to "Home", root_url %></li>
       <% if logged_in? %>
         <li>Welcome <%=h current_user.username %>! Not you? <%= link_to "Log out", logout_path %></li>
+        <li>See <%= link_to_unless_current "my owner", current_user.owner %>.</li>
       <% else %>
         <li>Don't have an account? <%= link_to_unless_current "Sign up!", signup_path %></li>
         <li>Already have an account? <%= link_to_unless_current "Log in!", login_path %></li>
