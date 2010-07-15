@@ -1,5 +1,19 @@
 foo_owner:
+  id: 1
   user_id: 1
+  working: 0
 
 bar_owner:
+  id: 2
   user_id: 2
+  working: 0
+
+binch_owner:
+  id: 3
+  user_id: 3
+  working: 1
+
+plop_owner:
+  id: 4
+  user_id: 4
+  working: 0

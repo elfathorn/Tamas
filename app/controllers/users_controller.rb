@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       flash[:notice] = "Thank you for signing up! You are now logged in."
-      redirect_to @user.owner
+      redirect_to new_tutorial_path
     else
       render :action => 'new'
     end

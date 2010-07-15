@@ -1,6 +1,8 @@
 class Owner < ActiveRecord::Base
   belongs_to :user
-  attr_accessible :user
+  has_one :tutorial
+
+  attr_accessible :user, :tutorial
 
   validates_presence_of :user
 end

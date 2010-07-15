@@ -85,6 +85,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'new user SHOULD HAVE an owner' do
+    User.delete_all
     user = new_user
     user.save!
     assert user.owner

@@ -15,7 +15,7 @@ class UsersControllerTest < ActionController::TestCase
   def test_create_valid
     User.any_instance.stubs(:valid?).returns(true)
     post :create
-    assert_redirected_to assigns['user'].owner
+    assert_redirected_to new_tutorial_path
     assert_equal assigns['user'].id, session['user_id']
   end
 end

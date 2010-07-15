@@ -12,3 +12,17 @@ bar:
   email: bar@example.com
   password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
   password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
+
+binch:
+  id: 3
+  username: binch
+  email: binch@example.com
+  password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
+  password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
+
+plop:
+  id: 4
+  username: plop
+  email: plop@example.com
+  password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
+  password_salt: bef65e058905c379436d80d1a32e7374b139e7b0

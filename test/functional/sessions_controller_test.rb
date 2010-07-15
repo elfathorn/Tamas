@@ -19,4 +19,10 @@ class SessionsControllerTest < ActionController::TestCase
     assert_redirected_to User.first.owner
     assert_equal User.first.id, session['user_id']
   end
+
+  def test_destroy
+    post :destroy
+    assert_equal nil, session['user_id']
+    assert_redirected_to root_url
+  end
 end
