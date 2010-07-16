@@ -1,0 +1,23 @@
+foo_baby_tama_one:
+  id: 1
+  tutorial_id: 1
+  name: Foo Baby Tama 1
+  strength: 5
+  intellect: 5
+  fantasy: 5
+
+foo_baby_tama_two:
+  id: 2
+  tutorial_id: 1
+  name: Foo Baby Tama 2
+  strength: 5
+  intellect: 5
+  fantasy: 5
+
+foo_baby_tama_three:
+  id: 3
+  tutorial_id: 1
+  name: Foo Baby Tama 3
+  strength: 5
+  intellect: 5
+  fantasy: 5

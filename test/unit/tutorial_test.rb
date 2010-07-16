@@ -28,4 +28,16 @@ class TutorialTest < ActiveSupport::TestCase
     Tutorial.destroy tutorial
     assert_equal 1, Owner.find(owner_id).working
   end
+
+  test 'new tutorial SHOULD HAVE three baby tamas' do
+    tutorial = new_tutorial
+    assert_difference 'BabyTama.count', 3 do
+      tutorial.save!
+    end
+    assert_equal 3, tutorial.baby_tamas.length
+    assert BabyTama.find_by_name("Foo Tama 1")
+    assert BabyTama.find_by_name("Foo Tama 2")
+    assert BabyTama.find_by_name("Foo Tama 3")
+  end
+
 end

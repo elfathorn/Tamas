@@ -2,5 +2,32 @@
 
 <% form_for @tutorial do |f| %>
   <%= f.error_messages %>
+
+  <% 3.times do |i| %>
+    <% num = i+1 %>
+    <br />
+    <h2><%=h "#{@username} Tama #{num}" %></h2>
+    <span id="<%= "baby_tama_#{num}_leaving_points" %>">3 points leaving</span>
+    <br />
+    <%= label "baby_tama_#{num}", :name, "Name Tama #{num} : " %>
+    <%= text_field "baby_tama_#{num}", :name %>
+    <br />
+    <%= label "baby_tama_#{num}", :strength, "Strength Tama #{num} : " %>
+    <%= button_to_function "-", "alert('minus')", { :id => "baby_tama_#{num}_strength_minus" } %>
+    <%= text_field "baby_tama_#{num}", :strength, :disabled => "disabled" %>
+    <%= button_to_function "+", "alert('plus')", { :id => "baby_tama_#{num}_strength_plus" } %>
+    <br />
+    <%= label "baby_tama_#{num}", :intellect, "Intellect Tama #{num} : " %>
+    <%= button_to_function "-", "alert('minus')", { :id => "baby_tama_#{num}_intellect_minus" } %>
+    <%= text_field "baby_tama_#{num}", :intellect, :disabled => "disabled" %>
+    <%= button_to_function "+", "alert('plus')", { :id => "baby_tama_#{num}_intellect_plus" } %>
+    <br />
+    <%= label "baby_tama_#{num}", :fantasy, "Fantasy Tama #{num} : " %>
+    <%= button_to_function "-", "alert('minus')", { :id => "baby_tama_#{num}_fantasy_minus" } %>
+    <%= text_field "baby_tama_#{num}", :fantasy, :disabled => "disabled" %>
+    <%= button_to_function "+", "alert('plus')", { :id => "baby_tama_#{num}_fantasy_plus" } %>
+    <br />
+  <% end %>
+
   <p><%= f.submit %></p>
 <% end %>

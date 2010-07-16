@@ -1,6 +1,7 @@
 class TutorialsController < ApplicationController
   before_filter :login_required
   before_filter :owner_not_working
+  before_filter :redirect_to_tutorial_if_a_tutorial_exists, :only => [ :new ]
   before_filter :redirect_to_owner_if_not_current_owner, :only => [ :show ]
   before_filter :redirect_to_new_tutorial_if_owner_without_tutorial, :only => [ :destroy ]
 
@@ -8,15 +9,28 @@ class TutorialsController < ApplicationController
   end
 
   def new
+    @username = current_user.username.capitalize
     @tutorial = Tutorial.new
+    @baby_tama_1 = BabyTama.new(:name => "#{@username} Tama 1")
+    @baby_tama_2 = BabyTama.new(:name => "#{@username} Tama 2")
+    @baby_tama_3 = BabyTama.new(:name => "#{@username} Tama 3")
   end
   
   def create
+#    @tutorial = Tutorial.new(params[:tutorial])
+#    @tutorial.owner = @current_owner
+#    if @tutorial.save
+#      flash[:notice] = "Successfully created tutorial."
+#      redirect_to @tutorial
+#    else
+#      render :action => 'new'
+#    end
     @tutorial = Tutorial.new(params[:tutorial])
-    @tutorial.owner = @current_owner
-    if @tutorial.save
-      flash[:notice] = "Successfully created tutorial."
-      redirect_to @tutorial
+    @baby_tama_1 = BabyTama.new(params[:baby_tama_1])
+    @baby_tama_2 = BabyTama.new(params[:baby_tama_2])
+    @baby_tama_3 = BabyTama.new(params[:baby_tama_3])
+    if @baby_tama_1.valid? && @baby_tama_2.valid? && @baby_tama_3.valid? && @tutorial.save
+      
     else
       render :action => 'new'
     end
@@ -34,6 +48,13 @@ class TutorialsController < ApplicationController
     if @current_owner.working?
       flash[:error] = "You have already done the tutorial."
       redirect_to @current_owner
+    end
+  end
+
+  def redirect_to_tutorial_if_a_tutorial_exists
+    if !@current_owner.tutorial.nil?
+      flash[:error] = "You have already started a tutorial."
+      redirect_to @current_owner.tutorial
     end
   end
 

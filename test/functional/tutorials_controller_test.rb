@@ -1,20 +1,28 @@
 require 'test_helper'
 
 class TutorialsControllerTest < ActionController::TestCase
-  def test_create_invalid
+#  def test_create_valid
+#    login_as :foo
+#    Tutorial.any_instance.stubs(:valid?).returns(true)
+#    post :create
+#    tutorial = assigns['tutorial']
+#    assert_equal owners(:foo_owner), tutorial.owner
+#    assert_redirected_to tutorial
+#  end
+
+  test 'create SHOULD FAILED if baby tamas not valid' do
     login_as :foo
-    Tutorial.any_instance.stubs(:valid?).returns(false)
+    BabyTama.any_instance.stubs(:valid?).returns(false)
     post :create
     assert_template 'new'
   end
 
-  def test_create_valid
+  test 'create SHOULD FAILED if baby tamas are ok but not the tutorial' do
     login_as :foo
-    Tutorial.any_instance.stubs(:valid?).returns(true)
+    BabyTama.any_instance.stubs(:valid?).returns(true)
+    Tutorial.any_instance.stubs(:valid?).returns(false)
     post :create
-    tutorial = assigns['tutorial']
-    assert_equal owners(:foo_owner), tutorial.owner
-    assert_redirected_to tutorial
+    assert_template 'new'
   end
 
   test 'new SHOULD BE redirected if not logged in' do
@@ -28,8 +36,14 @@ class TutorialsControllerTest < ActionController::TestCase
     assert_redirected_to owners(:binch_owner)
   end
 
-  test 'new SHOULD BE available for owner not working' do
+  test 'new SHOULD BE redirected if owner not working but having one tutorial already' do
     login_as :foo
+    get :new
+    assert_redirected_to tutorials(:foo_owner_tutorial)
+  end
+
+  test 'new SHOULD BE available for owner not working' do
+    login_as :plop
     get :new
     assert_template 'new'
   end
@@ -87,11 +101,40 @@ class TutorialsControllerTest < ActionController::TestCase
     assert_redirected_to owners(:bar_owner)
   end
 
-  test 'destroy SHOULD delete the current owner tutorial' do
+  test 'destroy SHOULD DELETE the current owner tutorial' do
     login_as :bar
     assert_difference 'Tutorial.count', -1 do
       get :destroy
     end
     assert_equal nil, owners(:bar_owner).tutorial
   end
+
+  test 'new SHOULD INSTANTIATE three baby tamas with default name' do
+    login_as :plop
+    get :new
+    assert_equal assigns['baby_tama_1'].name, "Plop Tama 1"
+    assert_equal assigns['baby_tama_2'].name, "Plop Tama 2"
+    assert_equal assigns['baby_tama_3'].name, "Plop Tama 3"
+  end
+
+  test 'new SHOULD HAVE a form' do
+    login_as :plop
+    get :new
+    3.times do |i|
+      x = i+1
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_name", :value => "Plop Tama #{x}" }
+      assert_tag :tag => 'h2', :content => "Plop Tama #{x}"
+      assert_tag :tag => 'span', :content => "3 points leaving", :attributes => { :id => "baby_tama_#{x}_leaving_points" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_strength", :value => '5', :disabled => "disabled" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_intellect", :value => '5', :disabled => "disabled" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_fantasy", :value => '5', :disabled => "disabled" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_strength_minus", :value => '-', :type => "button" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_strength_plus", :value => '+', :type => "button" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_intellect_minus", :value => '-', :type => "button" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_intellect_plus", :value => '+', :type => "button" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_fantasy_minus", :value => '-', :type => "button" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_fantasy_plus", :value => '+', :type => "button" }
+    end
+  end
+
 end

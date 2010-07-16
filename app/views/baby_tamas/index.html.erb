@@ -1,0 +1,21 @@
+<% title "Baby Tamas" %>
+
+<table>
+  <tr>
+    <th>Tutorial</th>
+    <th>Name</th>
+    <th>Strength</th>
+    <th>Intellect</th>
+    <th>Fantasy</th>
+  </tr>
+  <% for baby_tama in @baby_tamas %>
+    <tr>
+      <td><%=h baby_tama.tutorial %></td>
+      <td><%=h baby_tama.name %></td>
+      <td><%=h baby_tama.strength %></td>
+      <td><%=h baby_tama.intellect %></td>
+      <td><%=h baby_tama.fantasy %></td>
+    </tr>
+  <% end %>
+</table>
+
