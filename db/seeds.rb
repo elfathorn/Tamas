@@ -8,6 +8,7 @@
 User.delete_all
 Owner.delete_all
 Tutorial.delete_all
+BabyTama.delete_all
 User.create([
   { :username => 'user1', :email => 'user1@gmail.com', :password => 'user1' },
   { :username => 'user2', :email => 'user2@gmail.com', :password => 'user2' },

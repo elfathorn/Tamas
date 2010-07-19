@@ -14,24 +14,30 @@ class TutorialsController < ApplicationController
     @baby_tama_1 = BabyTama.new(:name => "#{@username} Tama 1")
     @baby_tama_2 = BabyTama.new(:name => "#{@username} Tama 2")
     @baby_tama_3 = BabyTama.new(:name => "#{@username} Tama 3")
+    @tamas = [ @baby_tama_1, @baby_tama_2, @baby_tama_3 ]
   end
   
   def create
-#    @tutorial = Tutorial.new(params[:tutorial])
-#    @tutorial.owner = @current_owner
-#    if @tutorial.save
-#      flash[:notice] = "Successfully created tutorial."
-#      redirect_to @tutorial
-#    else
-#      render :action => 'new'
-#    end
     @tutorial = Tutorial.new(params[:tutorial])
+    @tutorial.owner = @current_owner
     @baby_tama_1 = BabyTama.new(params[:baby_tama_1])
     @baby_tama_2 = BabyTama.new(params[:baby_tama_2])
     @baby_tama_3 = BabyTama.new(params[:baby_tama_3])
-    if @baby_tama_1.valid? && @baby_tama_2.valid? && @baby_tama_3.valid? && @tutorial.save
-      
+    @tamas = [ @baby_tama_1, @baby_tama_2, @baby_tama_3 ]
+    valid1 = @baby_tama_1.valid?
+    valid2 = @baby_tama_2.valid?
+    valid3 = @baby_tama_3.valid?
+    if valid1 && valid2 && valid3 && @tutorial.save
+      flash[:notice] = "Successfully created tutorial."
+      baby_tama_1 = @tutorial.baby_tamas.find_by_name("#{current_user.username.capitalize} Tama 1")
+      baby_tama_1.update_attributes( :name => @baby_tama_1.name, :strength => @baby_tama_1.strength, :intellect => @baby_tama_1.intellect, :fantasy => @baby_tama_1.fantasy )
+      baby_tama_2 = @tutorial.baby_tamas.find_by_name("#{current_user.username.capitalize} Tama 2")
+      baby_tama_2.update_attributes( :name => @baby_tama_2.name, :strength => @baby_tama_2.strength, :intellect => @baby_tama_2.intellect, :fantasy => @baby_tama_2.fantasy )
+      baby_tama_3 = @tutorial.baby_tamas.find_by_name("#{current_user.username.capitalize} Tama 3")
+      baby_tama_3.update_attributes( :name => @baby_tama_3.name, :strength => @baby_tama_3.strength, :intellect => @baby_tama_3.intellect, :fantasy => @baby_tama_3.fantasy )
+      redirect_to @tutorial
     else
+      @tamas_errors = [ @baby_tama_1.errors, @baby_tama_2.errors, @baby_tama_3.errors ]
       render :action => 'new'
     end
   end

@@ -1,15 +1,6 @@
 require 'test_helper'
 
 class TutorialsControllerTest < ActionController::TestCase
-#  def test_create_valid
-#    login_as :foo
-#    Tutorial.any_instance.stubs(:valid?).returns(true)
-#    post :create
-#    tutorial = assigns['tutorial']
-#    assert_equal owners(:foo_owner), tutorial.owner
-#    assert_redirected_to tutorial
-#  end
-
   test 'create SHOULD FAILED if baby tamas not valid' do
     login_as :foo
     BabyTama.any_instance.stubs(:valid?).returns(false)
@@ -23,6 +14,27 @@ class TutorialsControllerTest < ActionController::TestCase
     Tutorial.any_instance.stubs(:valid?).returns(false)
     post :create
     assert_template 'new'
+  end
+
+  test 'create SHOULD BE valid' do
+    login_as :foo
+    Tutorial.any_instance.stubs(:valid?).returns(true)
+    BabyTama.any_instance.stubs(:valid?).returns(true)
+    post :create, :baby_tama_1 => { :name => "FooTama1", :strength => 6, :intellect => 7, :fantasy => 5 },
+                  :baby_tama_2 => { :name => "FooTama2", :strength => 7, :intellect => 5, :fantasy => 6 },
+                  :baby_tama_3 => { :name => "FooTama3", :strength => 5, :intellect => 6, :fantasy => 7 }
+    tutorial = assigns['tutorial']
+    assert_equal owners(:foo_owner), tutorial.owner
+    assert_equal 6, BabyTama.find_by_tutorial_id_and_name(tutorial.id, "FooTama1").strength
+    assert_equal 7, BabyTama.find_by_tutorial_id_and_name(tutorial.id, "FooTama1").intellect
+    assert_equal 5, BabyTama.find_by_tutorial_id_and_name(tutorial.id, "FooTama1").fantasy
+    assert_equal 7, BabyTama.find_by_tutorial_id_and_name(tutorial.id, "FooTama2").strength
+    assert_equal 5, BabyTama.find_by_tutorial_id_and_name(tutorial.id, "FooTama2").intellect
+    assert_equal 6, BabyTama.find_by_tutorial_id_and_name(tutorial.id, "FooTama2").fantasy
+    assert_equal 5, BabyTama.find_by_tutorial_id_and_name(tutorial.id, "FooTama3").strength
+    assert_equal 6, BabyTama.find_by_tutorial_id_and_name(tutorial.id, "FooTama3").intellect
+    assert_equal 7, BabyTama.find_by_tutorial_id_and_name(tutorial.id, "FooTama3").fantasy
+    assert_redirected_to tutorial
   end
 
   test 'new SHOULD BE redirected if not logged in' do
@@ -124,16 +136,16 @@ class TutorialsControllerTest < ActionController::TestCase
       x = i+1
       assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_name", :value => "Plop Tama #{x}" }
       assert_tag :tag => 'h2', :content => "Plop Tama #{x}"
-      assert_tag :tag => 'span', :content => "3 points leaving", :attributes => { :id => "baby_tama_#{x}_leaving_points" }
-      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_strength", :value => '5', :disabled => "disabled" }
-      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_intellect", :value => '5', :disabled => "disabled" }
-      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_fantasy", :value => '5', :disabled => "disabled" }
-      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_strength_minus", :value => '-', :type => "button" }
-      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_strength_plus", :value => '+', :type => "button" }
-      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_intellect_minus", :value => '-', :type => "button" }
-      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_intellect_plus", :value => '+', :type => "button" }
-      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_fantasy_minus", :value => '-', :type => "button" }
-      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_fantasy_plus", :value => '+', :type => "button" }
+      assert_tag :tag => 'span', :content => "3", :attributes => { :id => "baby_tama_#{x}_leaving_points" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_strength", :value => '5' }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_intellect", :value => '5' }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_fantasy", :value => '5' }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_strength_minus", :value => '-', :type => "button", :onclick => "substract_attribute(#{x},'strength');" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_strength_plus", :value => '+', :type => "button", :onclick => "add_attribute(#{x},'strength');" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_intellect_minus", :value => '-', :type => "button", :onclick => "substract_attribute(#{x},'intellect');" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_intellect_plus", :value => '+', :type => "button", :onclick => "add_attribute(#{x},'intellect');" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_fantasy_minus", :value => '-', :type => "button", :onclick => "substract_attribute(#{x},'fantasy');" }
+      assert_tag :tag => 'input', :attributes => { :id => "baby_tama_#{x}_fantasy_plus", :value => '+', :type => "button", :onclick => "add_attribute(#{x},'fantasy');" }
     end
   end
 
