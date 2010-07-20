@@ -1,0 +1,23 @@
+binch_tama_one:
+  id: 1
+  owner_id: 3
+  name: Binch Tama 1
+  strength: 6
+  intellect: 6
+  fantasy: 6
+
+binch_tama_two:
+  id: 2
+  owner_id: 3
+  name: Binch Tama 2
+  strength: 4
+  intellect: 5
+  fantasy: 9
+
+binch_tama_three:
+  id: 3
+  owner_id: 3
+  name: Binch Tama 3
+  strength: 5
+  intellect: 7
+  fantasy: 6

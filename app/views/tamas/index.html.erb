@@ -1,0 +1,22 @@
+<% title "Tamas" %>
+
+<table>
+  <tr>
+    <th>Owner</th>
+    <th>Name</th>
+    <th>Strength</th>
+    <th>Intellect</th>
+    <th>Fantasy</th>
+  </tr>
+  <% for tama in @tamas %>
+    <tr>
+      <td><%=h tama.owner %></td>
+      <td><%=h tama.name %></td>
+      <td><%=h tama.strength %></td>
+      <td><%=h tama.intellect %></td>
+      <td><%=h tama.fantasy %></td>
+      <td><%= link_to "Show", tama %></td>
+    </tr>
+  <% end %>
+</table>
+
