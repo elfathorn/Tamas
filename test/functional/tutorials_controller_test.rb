@@ -16,6 +16,18 @@ class TutorialsControllerTest < ActionController::TestCase
     assert_template 'new'
   end
 
+  test 'create SHOULD SET points leaving by tama from tamas set by owner' do
+    login_as :foo
+    BabyTama.any_instance.stubs(:valid?).returns(false)
+    post :create, :baby_tama_1 => { :name => "FooTama1", :strength => 5, :intellect => 5, :fantasy => 5 },
+                  :baby_tama_2 => { :name => "FooTama2", :strength => 7, :intellect => 5, :fantasy => 6 },
+                  :baby_tama_3 => { :name => "FooTama3", :strength => 4, :intellect => 4, :fantasy => 3 }
+    assert_template 'new'
+    assert_tag :tag => 'span', :content => "3", :attributes => { :id => "baby_tama_1_leaving_points" }
+    assert_tag :tag => 'span', :content => "0", :attributes => { :id => "baby_tama_2_leaving_points" }
+    assert_tag :tag => 'span', :content => "7", :attributes => { :id => "baby_tama_3_leaving_points" }
+  end
+
   test 'create SHOULD BE valid' do
     login_as :foo
     Tutorial.any_instance.stubs(:valid?).returns(true)

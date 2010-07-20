@@ -4,41 +4,7 @@
 <% form_for @tutorial do |f| %>
   <%= f.error_messages %>
 
-  <% 3.times do |i| %>
-    <% num = i+1 %>
-    <br />
-    <h2><%=h "#{@username} Tama #{num}" %></h2>
-    <%- if !@tamas_errors.nil? && @tamas_errors[i].length > 0 -%>
-      <%- @tamas_errors[i].each do |attr,msg| -%>
-        <%= content_tag :span, "#{attr} - #{msg}", :id => "baby_error_#{num}" %>
-        <br />
-      <%- end -%>
-      <br />
-    <%- end -%>
-    <span id="<%= "baby_tama_#{num}_leaving_points" %>">3</span> points leaving
-    <br />
-    <%= label "baby_tama_#{num}", :name, "Name Tama #{num} : " %>
-    <%= text_field "baby_tama_#{num}", :name %>
-    <br />
-    <%= label "baby_tama_#{num}", :strength, "Strength Tama #{num} : " %>
-    <%= button_to_function "-", "substract_attribute(#{num},'strength')", { :id => "baby_tama_#{num}_strength_minus" } %>
-    <%= hidden_field "baby_tama_#{num}", :strength %>
-    <%= content_tag :span, @tamas[i].strength, :id => "baby_tama_#{num}_strength_span" %>
-    <%= button_to_function "+", "add_attribute(#{num},'strength')", { :id => "baby_tama_#{num}_strength_plus" } %>
-    <br />
-    <%= label "baby_tama_#{num}", :intellect, "Intellect Tama #{num} : " %>
-    <%= button_to_function "-", "substract_attribute(#{num},'intellect')", { :id => "baby_tama_#{num}_intellect_minus" } %>
-    <%= hidden_field "baby_tama_#{num}", :intellect %>
-    <%= content_tag :span, @tamas[i].intellect, :id => "baby_tama_#{num}_intellect_span" %>
-    <%= button_to_function "+", "add_attribute(#{num},'intellect')", { :id => "baby_tama_#{num}_intellect_plus" } %>
-    <br />
-    <%= label "baby_tama_#{num}", :fantasy, "Fantasy Tama #{num} : " %>
-    <%= button_to_function "-", "substract_attribute(#{num},'fantasy')", { :id => "baby_tama_#{num}_fantasy_minus" } %>
-    <%= hidden_field "baby_tama_#{num}", :fantasy %>
-    <%= content_tag :span, @tamas[i].fantasy, :id => "baby_tama_#{num}_fantasy_span" %>
-    <%= button_to_function "+", "add_attribute(#{num},'fantasy')", { :id => "baby_tama_#{num}_fantasy_plus" } %>
-    <br />
-  <% end %>
+  <%= render :partial => "form_for_tama", :collection => 3.times %>
 
   <p><%= f.submit %></p>
 <% end %>

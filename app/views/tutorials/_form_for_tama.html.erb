@@ -1,0 +1,18 @@
+<% num = form_for_tama_counter+1 %>
+<br />
+<h2><%=h "#{@username} Tama #{num}" %></h2>
+<%- if !@tamas_errors.nil? && @tamas_errors[form_for_tama_counter].length > 0 -%>
+  <%- @tamas_errors[form_for_tama_counter].each do |attr,msg| -%>
+    <%= content_tag :span, "#{attr} - #{msg}", :id => "baby_error_#{num}", :style => 'color:red;' %>
+    <br />
+  <%- end -%>
+  <br />
+<%- end -%>
+<span id="<%= "baby_tama_#{num}_leaving_points" %>"><%=h 9 - (@tamas[form_for_tama_counter].strength - 3) - (@tamas[form_for_tama_counter].intellect - 3) - (@tamas[form_for_tama_counter].fantasy - 3) %></span> points leaving
+<br />
+<%= label "baby_tama_#{num}", :name, "Name Tama #{num} : " %>
+<%= text_field "baby_tama_#{num}", :name %>
+<br />
+<%= render :partial => "form_for_attribute", :locals => { :attribute => :strength, :value => @tamas[form_for_tama_counter].strength, :num => num } %>
+<%= render :partial => "form_for_attribute", :locals => { :attribute => :intellect, :value => @tamas[form_for_tama_counter].intellect, :num => num } %>
+<%= render :partial => "form_for_attribute", :locals => { :attribute => :fantasy, :value => @tamas[form_for_tama_counter].fantasy, :num => num } %>
