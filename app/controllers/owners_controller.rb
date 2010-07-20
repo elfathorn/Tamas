@@ -10,11 +10,9 @@ class OwnersController < ApplicationController
   private
 
   def owner_not_working
-    if @current_owner === @owner && @current_owner.working === 0
-      flash[:error] = "You have to do/finish the tutorial before starting to play."
-      path = @current_owner.tutorial.nil? ? new_tutorial_path : @current_owner.tutorial
-      redirect_to path
-    end
+    condition = @current_owner === @owner && @current_owner.working === 0
+    path = @current_owner.tutorial.nil? ? new_tutorial_path : @current_owner.tutorial
+    redirect_by_condition(condition, path, "You have to do/finish the tutorial before starting to play.")
   end
 
   def set_owners

@@ -45,6 +45,24 @@ class BabyTamaTest < ActiveSupport::TestCase
     assert new_baby_tama(:name => 'odd^&(@)').errors.on(:name)
   end
 
+  test 'get_leaving_points SHOULD RETURN 3 for new default baby tama' do
+    baby_tama = new_baby_tama
+    baby_tama.save!
+    assert_equal 3, baby_tama.get_leaving_points
+  end
+
+  test 'get_leaving_points SHOULD RETURN leaving points for baby tama' do
+    baby_tama = new_baby_tama(:name => 'plopi', :strength => 3, :intellect => 3, :fantasy => 3)
+    baby_tama.save!
+    assert_equal 9, baby_tama.get_leaving_points
+    baby_tama2 = new_baby_tama(:name => 'plopi2', :strength => 6, :intellect => 7, :fantasy => 5)
+    baby_tama2.save!
+    assert_equal 0, baby_tama2.get_leaving_points
+    baby_tama3 = new_baby_tama(:name => 'plopi3', :strength => 4, :intellect => 7, :fantasy => 5)
+    baby_tama3.save!
+    assert_equal 2, baby_tama3.get_leaving_points
+  end
+
   private
 
   def a_baby_tama_should_have_property_as_an_integer_greater_than_two(property)

@@ -10,4 +10,8 @@ class BabyTama < ActiveRecord::Base
   validates_uniqueness_of :name, :allow_blank => true
   validates_format_of :name, :with => /^[-\w\. _@]+$/i, :allow_blank => true, :message => "should only contain letters, numbers, or . -_@"
 
+  def get_leaving_points
+    9 - (self.strength - 3) - (self.intellect - 3) - (self.fantasy - 3)
+  end
+
 end

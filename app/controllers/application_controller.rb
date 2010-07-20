@@ -8,4 +8,11 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+
+  def redirect_by_condition(condition, redirect_to, error)
+    if condition
+      flash.now[:error] = error
+      redirect_to redirect_to
+    end
+  end
 end

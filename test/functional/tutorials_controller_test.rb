@@ -28,6 +28,18 @@ class TutorialsControllerTest < ActionController::TestCase
     assert_tag :tag => 'span', :content => "7", :attributes => { :id => "baby_tama_3_leaving_points" }
   end
 
+  test 'create SHOULD FAILED if some points leaving' do
+    login_as :foo
+    Tutorial.any_instance.stubs(:valid?).returns(true)
+    BabyTama.any_instance.stubs(:valid?).returns(true)
+    post :create, :baby_tama_1 => { :name => "FooTama1", :strength => 5, :intellect => 5, :fantasy => 5 },
+                  :baby_tama_2 => { :name => "FooTama2", :strength => 7, :intellect => 5, :fantasy => 6 },
+                  :baby_tama_3 => { :name => "FooTama3", :strength => 8, :intellect => 4, :fantasy => 5 }
+    assert_template 'new'
+    assert_tag :tag => 'span', :content => "You still have 3 points", :attributes => { :id => "baby_error_points_1" }
+    assert_tag :tag => 'span', :content => "You still have 1 point", :attributes => { :id => "baby_error_points_3" }
+  end
+
   test 'create SHOULD BE valid' do
     login_as :foo
     Tutorial.any_instance.stubs(:valid?).returns(true)
