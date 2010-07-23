@@ -1,22 +1,7 @@
-<% title "Tamas" %>
+<% title 'My tamas' %>
 
-<table>
-  <tr>
-    <th>Owner</th>
-    <th>Name</th>
-    <th>Strength</th>
-    <th>Intellect</th>
-    <th>Fantasy</th>
-  </tr>
-  <% for tama in @tamas %>
-    <tr>
-      <td><%=h tama.owner %></td>
-      <td><%=h tama.name %></td>
-      <td><%=h tama.strength %></td>
-      <td><%=h tama.intellect %></td>
-      <td><%=h tama.fantasy %></td>
-      <td><%= link_to "Show", tama %></td>
-    </tr>
-  <% end %>
-</table>
-
+<ul>
+  <%- @current_owner.tamas.each do |my_tama| -%>
+  <li>Look at <%= link_to "#{my_tama.name.capitalize}", owner_tama_path(@current_owner, my_tama) %></li>
+  <%- end -%>
+</ul>

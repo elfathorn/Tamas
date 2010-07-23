@@ -37,4 +37,8 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def test_content_h1_and_title(content_expected)
+    assert_tag :tag => 'title', :content => content_expected
+    assert_tag :tag => 'h1', :content => content_expected
+  end
 end

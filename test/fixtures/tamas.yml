@@ -21,3 +21,27 @@ binch_tama_three:
   strength: 5
   intellect: 7
   fantasy: 6
+
+binchou_tama_one:
+  id: 4
+  owner_id: 5
+  name: Binchou Tama 1
+  strength: 6
+  intellect: 6
+  fantasy: 6
+
+binchou_tama_two:
+  id: 5
+  owner_id: 5
+  name: Binchou Tama 2
+  strength: 4
+  intellect: 5
+  fantasy: 9
+
+binchou_tama_three:
+  id: 6
+  owner_id: 5
+  name: Binchou Tama 3
+  strength: 5
+  intellect: 7
+  fantasy: 6

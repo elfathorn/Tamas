@@ -17,3 +17,8 @@ plop_owner:
   id: 4
   user_id: 4
   working: 0
+
+binchou_owner:
+  id: 5
+  user_id: 5
+  working: 1

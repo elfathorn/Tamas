@@ -104,8 +104,7 @@ class TutorialsControllerTest < ActionController::TestCase
   test 'show SHOULD HAVE a title and a h1 set to Tutorial explanations' do
     login_as :foo
     get :show, :id => tutorials(:foo_owner_tutorial)
-    assert_tag :tag => 'title', :content => 'Tutorial explanations'
-    assert_tag :tag => 'h1', :content => 'Tutorial explanations'
+    test_content_h1_and_title 'Tutorial explanations'
   end
 
   test 'show SHOULD HAVE a link start playing' do
