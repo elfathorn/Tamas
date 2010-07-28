@@ -1,47 +1,15 @@
 binch_tama_one:
   id: 1
-  owner_id: 3
+  owner_id: 1
   name: Binch Tama 1
-  strength: 6
-  intellect: 6
-  fantasy: 6
-
-binch_tama_two:
-  id: 2
-  owner_id: 3
-  name: Binch Tama 2
-  strength: 4
-  intellect: 5
-  fantasy: 9
-
-binch_tama_three:
-  id: 3
-  owner_id: 3
-  name: Binch Tama 3
-  strength: 5
-  intellect: 7
+  strength: 8
+  intellect: 4
   fantasy: 6
 
 binchou_tama_one:
   id: 4
-  owner_id: 5
+  owner_id: 2
   name: Binchou Tama 1
-  strength: 6
-  intellect: 6
-  fantasy: 6
-
-binchou_tama_two:
-  id: 5
-  owner_id: 5
-  name: Binchou Tama 2
   strength: 4
-  intellect: 5
-  fantasy: 9
-
-binchou_tama_three:
-  id: 6
-  owner_id: 5
-  name: Binchou Tama 3
-  strength: 5
   intellect: 7
-  fantasy: 6
+  fantasy: 7

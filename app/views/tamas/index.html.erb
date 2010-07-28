@@ -1,7 +1,7 @@
 <% title 'My tamas' %>
 
 <ul>
-  <%- @current_owner.tamas.each do |my_tama| -%>
-  <li>Look at <%= link_to "#{my_tama.name.capitalize}", owner_tama_path(@current_owner, my_tama) %></li>
+  <%- @owner.tamas.each do |tama| -%>
+  <li>Look at <%= link_to "#{tama.name.capitalize}", owner_tama_path(@owner, tama) %></li>
   <%- end -%>
 </ul>

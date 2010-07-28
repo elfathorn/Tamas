@@ -1,14 +1,18 @@
 ActionController::Routing::Routes.draw do |map|
 
+
   map.signup 'signup', :controller => 'users', :action => 'new'
   map.logout 'logout', :controller => 'sessions', :action => 'destroy'
   map.login 'login', :controller => 'sessions', :action => 'new'
-  map.start_playing 'start_playing', :controller => 'tutorials', :action => 'destroy'
+  map.start_playing 'start_playing', :controller => 'rookies', :action => 'destroy'
 
-  map.resources :baby_tamas
-  map.resources :tutorials
   map.resources :owners do |owner|
     owner.resources :tamas
+  end
+  map.resources :rookies do |rookie|
+    rookie.resources :tutorials do |tutorial|
+      tutorial.resources :baby_tamas
+    end
   end
   map.resources :sessions
   map.resources :users

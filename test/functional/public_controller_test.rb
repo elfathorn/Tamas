@@ -23,9 +23,9 @@ class PublicControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :attributes => { :href => logout_path }
   end
 
-  test 'index SHOULD HAVE my owner link if logged in' do
+  test 'index SHOULD HAVE my page link if logged in' do
     login_as :bar
     get :index
-    assert_tag :tag => 'a', :attributes => { :href => owner_path(owners(:bar_owner).id) }
+    assert_tag :tag => 'a', :attributes => { :href => user_path(users(:bar).id) }
   end
 end

@@ -3,7 +3,7 @@ require 'test_helper'
 class BabyTamaTest < ActiveSupport::TestCase
   def new_baby_tama(attributes = {}, set_tutorial = true)
     attributes[:tutorial] = set_tutorial ? Tutorial.first : nil
-    attributes[:name] ||= 'Foo Tama 1'
+    attributes[:name] ||= 'Bebe Tama'
     attributes[:strength] ||= 5
     attributes[:intellect] ||= 5
     attributes[:fantasy] ||= 5
@@ -36,11 +36,6 @@ class BabyTamaTest < ActiveSupport::TestCase
     a_baby_tama_should_have_property_as_an_integer_greater_than_two(:fantasy)
   end
 
-  test 'a baby tama SHOULD HAVE an unique name' do
-    new_baby_tama(:name => 'uniquename').save!
-    assert new_baby_tama(:name => 'uniquename').errors.on(:name)
-  end
-
   test 'a baby tama SHOULD NOT HAVE odd characters in name' do
     assert new_baby_tama(:name => 'odd^&(@)').errors.on(:name)
   end
@@ -61,6 +56,24 @@ class BabyTamaTest < ActiveSupport::TestCase
     baby_tama3 = new_baby_tama(:name => 'plopi3', :strength => 4, :intellect => 7, :fantasy => 5)
     baby_tama3.save!
     assert_equal 2, baby_tama3.get_leaving_points
+  end
+
+  test 'update a baby tama SHOULD NOT HAVE leaving points' do
+    baby_tama = new_baby_tama
+    baby_tama.save!
+    baby_tama.update_attributes({:strength => 6, :fantasy => 4})
+    assert baby_tama.errors.on(:leaving_points)
+    assert_equal 5, BabyTama.find(baby_tama.id).strength
+    assert_equal 5, BabyTama.find(baby_tama.id).fantasy
+  end
+
+  test 'update a baby tama SHOULD PASS if no leaving points' do
+    baby_tama = new_baby_tama
+    baby_tama.save!
+    baby_tama.update_attributes({:strength => 6, :fantasy => 4, :intellect => 8})
+    assert_equal 6, BabyTama.find(baby_tama.id).strength
+    assert_equal 4, BabyTama.find(baby_tama.id).fantasy
+    assert_equal 8, BabyTama.find(baby_tama.id).intellect
   end
 
   private

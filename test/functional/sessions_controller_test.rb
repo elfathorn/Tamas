@@ -14,10 +14,10 @@ class SessionsControllerTest < ActionController::TestCase
   end
   
   def test_create_valid
-    User.stubs(:authenticate).returns(User.first)
+    User.stubs(:authenticate).returns(User.find(1))
     post :create
-    assert_redirected_to User.first.owner
-    assert_equal User.first.id, session['user_id']
+    assert_redirected_to users_path
+    assert_equal 1, session['user_id']
   end
 
   def test_destroy

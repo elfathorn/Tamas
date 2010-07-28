@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TamaTest < ActiveSupport::TestCase
  def new_tama(attributes = {}, set_owner = true)
-    attributes[:owner] = set_owner ? Owner.find(3) : nil
+    attributes[:owner] = set_owner ? Owner.first : nil
     attributes[:name] ||= 'Binch Tama 1'
     attributes[:strength] ||= 5
     attributes[:intellect] ||= 8

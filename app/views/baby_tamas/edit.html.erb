@@ -1,0 +1,20 @@
+<% javascript 'new_baby_tama' %>
+
+<% title 'Edit your baby tama' %>
+
+<% form_for(@baby_tama, :url => rooky_tutorial_baby_tama_path(@rookie,  @tutorial, @baby_tama), :html=>{:method=>:put}) do |f| %>
+  <%= f.error_messages %>
+
+  <br />
+  <h2><%= 'My first tama' %></h2>
+  <span id="baby_tama_leaving_points"><%=h @baby_tama.get_leaving_points %></span> points leaving
+  <br />
+  <%= f.label :name, "Name Tama : " %>
+  <%= f.text_field :name %>
+  <br />
+  <%= render :partial => "form_for_attribute", :locals => { :attribute => :strength, :value => @baby_tama.strength, :form => f } %>
+  <%= render :partial => "form_for_attribute", :locals => { :attribute => :intellect, :value => @baby_tama.intellect, :form => f } %>
+  <%= render :partial => "form_for_attribute", :locals => { :attribute => :fantasy, :value => @baby_tama.fantasy, :form => f } %>
+
+  <p><%= f.submit %></p>
+<% end %>

@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class TamasControllerTest < ActionController::TestCase
-  test 'index SHOULD BE redirected if not logged in' do
+
+  test 'index SHOULD BE REDIRECTED if not logged in' do
     get :index, :owner_id => Owner.first.id
     assert_redirected_to login_path
   end
@@ -9,22 +10,17 @@ class TamasControllerTest < ActionController::TestCase
   test 'index SHOULD BE redirected if not current owner' do
     login_as :foo
     get :index, :owner_id => owners(:binch_owner).id
-    assert_redirected_to owners(:foo_owner)
-  end
-
-  test 'index SHOULD BE redirected if current owner not working' do
-    login_as :foo
-    get :index, :owner_id => owners(:foo_owner).id
-    assert_redirected_to owners(:foo_owner)
+    assert_redirected_to users_path
   end
 
   test 'index SHOULD BE available for current owner' do
     login_as :binch
     get :index, :owner_id => owners(:binch_owner).id
     assert_template 'index'
+    assert_equal owners(:binch_owner), assigns['owner']
   end
 
-  test 'index SHOULD HAVE h1 and title set to My tamas if current owner' do
+  test 'index SHOULD HAVE h1 and title set if current owner' do
     login_as :binch
     get :index, :owner_id => owners(:binch_owner).id
     test_content_h1_and_title 'My tamas'
@@ -57,19 +53,13 @@ class TamasControllerTest < ActionController::TestCase
   test 'show SHOULD BE redirected if not current owner' do
     login_as :foo
     get :show, :owner_id => owners(:binch_owner).id, :id => Tama.first.id
-    assert_redirected_to owners(:foo_owner)
+    assert_redirected_to users_path
   end
 
-  test 'show SHOULD BE redirected if current owner not working' do
-    login_as :foo
-    get :show, :owner_id => owners(:foo_owner).id, :id => Tama.first.id
-    assert_redirected_to owners(:foo_owner)
-  end
-
-  test 'show SHOULD BE redirected if tama not one of current owner' do
+  test 'show SHOULD BE REDIRECTED if not one of current owner tamas' do
     login_as :binch
     get :show, :owner_id => owners(:binch_owner).id, :id => tamas(:binchou_tama_one).id
-    assert_redirected_to owner_tamas_path(owners(:binch_owner))
+    assert_redirected_to users_path
   end
 
   test 'show SHOULD BE available for current owner tama' do
@@ -78,4 +68,17 @@ class TamasControllerTest < ActionController::TestCase
     assert_template 'show'
     assert_equal tamas(:binch_tama_one), assigns['tama']
   end
+
+  test 'show SHOULD HAVE h1 and title set if current owner tama' do
+    login_as :binch
+    get :show, :owner_id => owners(:binch_owner).id, :id => tamas(:binch_tama_one).id
+    test_content_h1_and_title 'Binch Tama 1 page'
+  end
+
+  test 'show SHOULD HAVE a back link' do
+    login_as :binch
+    get :show, :owner_id => owners(:binch_owner).id, :id => tamas(:binch_tama_one).id
+    assert_tag :tag => 'a', :attributes => { :href => owner_tamas_path(owners(:binch_owner)) }
+  end
+
 end

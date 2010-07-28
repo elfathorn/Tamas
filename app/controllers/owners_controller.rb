@@ -1,23 +1,16 @@
 class OwnersController < ApplicationController
   before_filter :login_required
-  before_filter :set_owners
-  before_filter :owner_not_working
+  before_filter :redirect_if_not_current_owner
 
   def show
-    render 'show_my_owner' if @owner === @current_owner
+    @owner = current_user.owner
   end
 
   private
 
-  def owner_not_working
-    condition = @current_owner === @owner && @current_owner.working === 0
-    path = @current_owner.tutorial.nil? ? new_tutorial_path : @current_owner.tutorial
-    redirect_by_condition(condition, path, "You have to do/finish the tutorial before starting to play.")
-  end
-
-  def set_owners
-    @owner = Owner.find(params[:id])
-    @current_owner = current_user.owner
+  def redirect_if_not_current_owner
+    owner = Owner.find(params[:id])
+    redirect_by_condition(owner != current_user.owner, users_path, "You can't access to this page!")
   end
   
 end

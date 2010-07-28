@@ -84,12 +84,12 @@ class UserTest < ActiveSupport::TestCase
     assert_nil User.authenticate('foobar', 'badpassword')
   end
 
-  test 'new user SHOULD HAVE an owner' do
+  test 'new user SHOULD HAVE a rookie' do
     User.delete_all
     user = new_user
-    assert_difference 'Owner.count' do
+    assert_difference 'Rookie.count' do
       user.save!
     end
-    assert user.owner
+    assert user.rookie
   end
 end

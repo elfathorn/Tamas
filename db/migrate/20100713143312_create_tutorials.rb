@@ -1,7 +1,7 @@
 class CreateTutorials < ActiveRecord::Migration
   def self.up
     create_table :tutorials do |t|
-      t.references :owner
+      t.references :rookie
       t.timestamps
     end
   end

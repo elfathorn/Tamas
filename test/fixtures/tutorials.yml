@@ -1,7 +1,11 @@
-foo_owner_tutorial:
+foo_rookie_tutorial:
   id: 1
-  owner_id: 1
+  rookie_id: 1
 
-bar_owner_tutorial:
+bar_rookie_tutorial:
   id: 2
-  owner_id: 2
+  rookie_id: 2
+
+plop_rookie_tutorial:
+  id: 3
+  rookie_id: 3

@@ -1,6 +1,0 @@
-<%= label "baby_tama_#{num}", attribute, "#{attribute.to_s.capitalize} Tama #{num} : " %>
-<%= button_to_function "-", "substract_attribute(#{num},'#{attribute}')", { :id => "baby_tama_#{num}_#{attribute}_minus" } %>
-<%= hidden_field "baby_tama_#{num}", attribute %>
-<%= content_tag :span, value, :id => "baby_tama_#{num}_#{attribute}_span" %>
-<%= button_to_function "+", "add_attribute(#{num},'#{attribute}')", { :id => "baby_tama_#{num}_#{attribute}_plus" } %>
-<br />
